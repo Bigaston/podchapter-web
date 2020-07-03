@@ -15,7 +15,7 @@ module.exports = {
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
 	output: {
-		path: __dirname + '/web/static',
+		path: __dirname + '/web/public',
 		filename: '[name].js',
 		chunkFilename: '[name].[id].js'
 	},
