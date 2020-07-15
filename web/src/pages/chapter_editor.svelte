@@ -4,6 +4,7 @@
 	import Cover from "../components/cover.svelte";
 	import HMS from "../components/hms.svelte";
 	import Button from "../components/button.svelte";
+	import Loader from "../components/loader.svelte"
 
     import IconifyIcon from "@iconify/svelte";
     import fileFolderIcon from "@iconify/icons-twemoji/file-folder";
@@ -15,6 +16,7 @@
 	var toBuffer = require('blob-to-buffer')
 
 	import NodeID3 from "../node-id3.js"
+	var Base64 = require('js-base64').Base64;
 
 	const dispatch = createEventDispatcher()
 
@@ -29,26 +31,33 @@
 	let genre = "";
 	let trackNumber = "";
 	let performerInfo = ""
-	let image = {};
-	let image_mime = {};
+	let image = undefined;
+	let image_mime = undefined;
 	let chapter_list = [];
+
+	let during = false;
+
+	let tags;
 
 	toBuffer(file_blob, function (err, buffer) {
 		if (err) throw err
 		file_buffer = buffer;
 
-		const tags = NodeID3.read(file_buffer);
+		tags = NodeID3.read(file_buffer);
 
 		title = tags.title;
 		artist = tags.artist;
 		album = tags.album;
 		year = tags.year;
-		composer = tags.composer;
+		composer = tags.composer || "";
 		genre = tags.genre;
 		trackNumber = tags.trackNumber;
-		performerInfo = tags.performerInfo
-		image = (tags.image || {}).imageBuffer;
-		image_mime = (tags.image || {}).mime;
+		performerInfo = tags.performerInfo || ""
+
+		if (tags.image != undefined) {
+			image = tags.image.imageBuffer;
+			image_mime = tags.image.mime;
+		} 
 
 		chapter_list = tags.chapter || [];
 
@@ -64,7 +73,7 @@
 		chapter_list.push(
 			{
 				elementID: Date.now().toString(),
-				startTimeMs: last_chapter.endTimeMs,
+				startTimeMs: last_chapter.endTimeMs+1000,
 				endTimeMs: last_chapter.endTimeMs+30000,
 				tags: {
 				title: ""
@@ -77,6 +86,8 @@
 	}
 
 	function saveTag() {
+		during = true;
+
 		const new_tags = {
 			...tags,
 			title,
@@ -123,7 +134,7 @@
 
     	let new_file_buffer = NodeID3.write(new_tags, file_buffer)
 
-		downloadBlob(new Blob(new_file_buffer), "New " + file_blob.name);
+		downloadBlob(new_file_buffer, "tag-" + file_blob.name);
 	}
 
 	function backToFileSelect() {
@@ -155,31 +166,17 @@
 	}
 
 	function downloadBlob(blob, name) {
-		// Convert your blob into a Blob URL (a special url that points to an object in the browser's memory)
-		const blobUrl = URL.createObjectURL(blob);
+		let audio_array = new Uint8Array(blob);
+		let audio_url = "data:audio/mpeg;base64," + Base64.fromUint8Array(audio_array);
 
-		// Create a link element
-		const link = document.createElement("a");
+		let a = document.createElement("a");
+		a.download = name;
+		a.href = audio_url;
 
-		// Set link's href to point to the Blob URL
-		link.href = blobUrl;
-		link.download = name;
-
-		// Append link to the body
-		document.body.appendChild(link);
-
-		// Dispatch click event on the link
-		// This is necessary as link.click() does not work on the latest firefox
-		link.dispatchEvent(
-			new MouseEvent('click', { 
-			bubbles: true, 
-			cancelable: true, 
-			view: window 
-			})
-		);
-
-		// Remove link from body
-		document.body.removeChild(link);
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		during = false;
 	}
 </script>
 
@@ -227,7 +224,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		margin-top: 5px;
+		margin-top: 30px;
 	}
 
 	.icon img {
@@ -283,8 +280,9 @@
 </div>
 
 <Button on:click={addChapter}>
-<IconifyIcon icon={whiteFlagIcon} inline={true} /> Ajouter un chapitre
+	<IconifyIcon icon={whiteFlagIcon} inline={true} /> Ajouter un chapitre
 </Button>
 <Button on:click={saveTag}>
-<IconifyIcon icon={checkmarkIcon} inline={true} /> Sauvegarder
+	<IconifyIcon icon={checkmarkIcon} inline={true} /> Sauvegarder
 </Button>
+<Loader {during} />

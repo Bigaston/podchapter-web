@@ -49,5 +49,6 @@
 
 <div class="footer">
 	<p>PodChapter est développé par <a href="https://twitter.com/Bigaston">Bigaston</a> avec l'aide de <a href="https://twitter.com/PofMagicfingers">PofMagicfingers</a></p>
-	<p><IconifyIcon icon={keyboardIcon} inline={true} /> <a href="https://github.com/Bigaston/podchapter">Code Source</a> | <IconifyIcon icon={moneyBagIcon} inline={true} /> <a href="https://utip.io/bigaston">Me soutenir</a></p>
+	<p><IconifyIcon icon={keyboardIcon} inline={true} /> <a href="https://github.com/Bigaston/podchapter-web">Code Source</a> | <IconifyIcon icon={moneyBagIcon} inline={true} /> <a href="https://utip.io/bigaston">Me soutenir</a></p>
+	<p>Version logiciel disponible sur <a href="https://podchapter.bigaston.dev/">podchapter.bigaston.dev</a></p>
 </div>

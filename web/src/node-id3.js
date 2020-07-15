@@ -590,7 +590,6 @@ NodeID3.prototype.getTagsFromFrames = function(frames, ID3Version) {
 **  buffer  => Buffer
 */
 NodeID3.prototype.getFramePosition = function(buffer) {
-    console.log(buffer)
     let framePosition = buffer.indexOf("ID3")
     if(framePosition == -1 || framePosition > 20) {
         return -1
