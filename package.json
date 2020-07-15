@@ -1,8 +1,8 @@
 {
-  "name": "svelte-base",
+  "name": "podchapter-web",
   "version": "1.0.0",
-  "description": "Basic svelte and express template I use for my application",
-  "main": "server.js",
+  "description": "Version entièrement en navigateur de PodChapter",
+  "main": "podchapter.js",
   "scripts": {
     "build": "webpack",
     "release": "cross-env NODE_ENV=production webpack",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bigaston/svelte-base.git"
+    "url": "git+https://github.com/Bigaston/podchapter-web.git"
   },
   "author": "Bigaston",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/Bigaston/svelte-base/issues"
+    "url": "https://github.com/Bigaston/podchapter-web/issues"
   },
-  "homepage": "https://github.com/Bigaston/svelte-base#readme",
+  "homepage": "https://github.com/Bigaston/podchapter-web#readme",
   "dependencies": {
     "blob-to-buffer": "^1.2.8",
     "buffer": "^5.6.0",
