@@ -4,7 +4,6 @@
 	import Cover from "../components/cover.svelte";
 	import HMS from "../components/hms.svelte";
 	import Button from "../components/button.svelte";
-	import Loader from "../components/loader.svelte"
 
     import IconifyIcon from "@iconify/svelte";
     import fileFolderIcon from "@iconify/icons-twemoji/file-folder";
@@ -86,8 +85,6 @@
 	}
 
 	function saveTag() {
-		during = true;
-
 		const new_tags = {
 			...tags,
 			title,
@@ -176,7 +173,6 @@
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
-		during = false;
 	}
 </script>
 
@@ -285,4 +281,3 @@
 <Button on:click={saveTag}>
 	<IconifyIcon icon={checkmarkIcon} inline={true} /> Sauvegarder
 </Button>
-<Loader {during} />

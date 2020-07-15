@@ -9,6 +9,6 @@
 </script>
 
 <center>
-	<p>Merci de sélectionner un fichier</p>
+	<p>Merci de sélectionner un fichier MP3</p>
 	<input type="file" id="fileinput" accept="audio/mpeg" on:change={fileChosed} />
 </center>
