@@ -52,4 +52,5 @@
 	<p><IconifyIcon icon={keyboardIcon} inline={true} /> <a href="https://github.com/Bigaston/podchapter-web">Code Source</a> | <IconifyIcon icon={moneyBagIcon} inline={true} /> <a href="https://utip.io/bigaston">Me soutenir</a></p>
 	<p>Version logiciel disponible sur <a href="https://podchapter.bigaston.dev/">podchapter.bigaston.dev</a></p>
 	<p>Ce site utilise une version adaptée de <a href="https://www.npmjs.com/package/node-id3" target="_blank">node-id3</a></p>
+	<p>Ce site utilise l'outil de statistique <a href="https://www.goatcounter.com/" target="_blank">GoatCounter</a></p>
 </div>
