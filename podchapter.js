@@ -1,11 +1,18 @@
 const express = require('express')
-const path = require("path")
+const path = require("path");
+var compression = require('compression');
 
 var app = express()
 
 const PORT = 1697;
 
+app.use(compression())
+
 app.use("/public", express.static('./web/public'));
+
+app.get("/robots.txt", (req, res) => {
+	res.sendFile(path.join(__dirname, "./web/robots.txt"))
+})
 
 app.get("/*", (req, res) => {
 	res.sendFile(path.join(__dirname, "./web/index.html"))

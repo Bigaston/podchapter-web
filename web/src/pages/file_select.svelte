@@ -8,7 +8,15 @@
 	}
 </script>
 
+
+<style>
+	label {
+		display: block;
+		margin-bottom: 5px;
+	}
+</style>
+
 <center>
-	<p>Merci de sélectionner un fichier MP3</p>
+	<label for="fileinput">Merci de sélectionner un fichier MP3</label>
 	<input type="file" id="fileinput" accept="audio/mpeg" on:change={fileChosed} />
 </center>
