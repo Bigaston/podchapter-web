@@ -14,6 +14,10 @@ app.get("/robots.txt", (req, res) => {
 	res.sendFile(path.join(__dirname, "./web/robots.txt"))
 })
 
+app.get("/sw.js", (req, res) => {
+	res.sendFile(path.join(__dirname, "./web/sw.js"))
+})
+
 app.get("/*", (req, res) => {
 	res.sendFile(path.join(__dirname, "./web/index.html"))
 })
